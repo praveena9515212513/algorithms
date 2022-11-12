@@ -1,0 +1,101 @@
+#include<stdlib.h>
+
+struct ListNode{
+    int val;
+    struct ListNode *next;
+};
+struct ListNode* createNode (int n){
+    struct ListNode *temp;
+    temp=(struct ListNode*)malloc(sizeof(struct ListNode));
+    temp->val=n;
+    temp->next=NULL;
+    return temp;
+}
+struct ListNode* createList(int n){
+    struct ListNode *head=NULL,*newn,*last;
+    int val;
+    for(int i=0;i<n;i++){
+        printf("enter data");
+        scanf("%d",&val);
+        newn=createNode(val);
+        if(head==NULL){
+            head=newn;
+        }
+        else last->next=newn;
+        last=newn;
+    }
+    return head;
+}
+struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2){
+    struct ListNode* l3=NULL,*last,*newn;
+    if(list1==NULL){
+        return list2;
+    }
+    else if(list2==NULL){
+        return list1;
+    }
+    while(list1 && list2)
+    {
+        newn=(struct ListNode*)malloc(sizeof(struct ListNode));
+        if(list1->val > list2->val){
+            newn->val=list2->val;
+            newn->next=NULL;
+            list2=list2->next;
+        }
+        else{
+            newn->val=list1->val;
+            newn->next=NULL;  
+            list1=list1->next;
+        }
+        if(l3==NULL){
+            l3=newn;
+        }
+        else
+            last->next=newn;
+        last=newn;
+    }
+    while(list1){
+        newn=(struct ListNode*)malloc(sizeof(struct ListNode));
+        newn->val=list1->val;
+        newn->next=NULL;  
+        list1=list1->next;
+        last->next=newn;
+        last=newn;
+    }
+    while(list2){
+        newn=(struct ListNode*)malloc(sizeof(struct ListNode));
+        newn->val=list2->val;
+        newn->next=NULL;  
+        list2=list2->next;
+        last->next=newn;
+        last=newn;
+    }
+    return l3;
+}
+int main(){
+    struct ListNode *l1,*l2,*l3;
+    int n,m;
+    printf("Enter no of elements in list1");
+    scanf("%d",&n);
+    l1=createList(n);
+    printf("Enter no of elements in list2");
+    scanf("%d",&m);
+    l2=createList(m);
+    l3=mergeTwoLists(l1,l2);
+    while(l3){
+        printf("%d ",l3->val);
+        l3=l3->next;
+    }
+    return 0;
+}
+
+output:
+enter no of elements in list1 3
+enter data 1 
+enter data 2
+enter data 4
+enter no of elements in list2 3
+enter data 1
+enter data 3
+enter data 4
+1 1 2 3 4 4
