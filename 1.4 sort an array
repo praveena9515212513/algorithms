@@ -1,0 +1,65 @@
+#include<stdio.h>
+#include<malloc.h>
+
+void merge(int* a,int l,int m,int r){
+    int i=l,j=m+1,k=0;
+    int b[r-l+1];
+    while(i<=m && j<=r){
+        if(a[i]>a[j]){
+            b[k++]=a[j++];
+        }
+        else{
+            b[k++]=a[i++];
+        }
+    }
+    while(i<=m){
+        b[k++]=a[i++];
+    }
+    while(j<=r){
+        b[k++]=a[j++];
+    }
+    k=0;
+    for(int i=l;i<=r;i++){
+        a[i]=b[k++];
+    }
+}
+void split(int* a,int l,int r){
+    if(l<r)
+    {
+        int m=(l+r)/2;
+        split(a,l,m);
+        split(a,m+1,r);
+        merge(a,l,m,r);
+    }
+}
+int* sortArray(int* nums, int numsSize){
+// *returnSize=numsSize;
+// split(nums,0,numsSize-1);
+// return nums;
+split(nums,0,numsSize-1);
+return nums;
+}
+
+int main()
+{
+    int *nums,n,*a;
+    printf("enter no of elements");
+    scanf("%d",&n);
+    for(int i=0;i<n;i++){
+        scanf("%d",&nums[i]);
+    }
+    a=sortArray(nums,n);
+    for(int i=0;i<n;i++){
+        printf("%d ",a[i]);
+    }
+}
+
+output:
+enter no of elements 6
+5
+1
+1
+2
+0
+0
+0 0 1 1 2 5
