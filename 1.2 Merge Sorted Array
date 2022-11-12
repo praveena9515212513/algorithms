@@ -31,25 +31,36 @@ while(i<m && j<n){
 }
 }
 int main(){
-    int *a,*b;
+    
     int size1,size2,z;
     printf("enter no of elements in list1 including zeroes");
     scanf("%d",&size1);
-
-    printf("enter elements for list1");
-    for(int i=0;i<size1;i++){
-        scanf("%d",a++);
-    }
     printf("enter no of elements in list2");
     scanf("%d",&size2);
-    printf("enter elements for list2");  
+    printf("enter no of zeroes in list1");
+    scanf("%d",&z);
+    int a[size1],b[size2];
+    printf("enter elements for list1\n");
+    for(int i=0;i<size1;i++){
+        scanf("%d",&a[i]);
+    }
+
+    printf("enter elements for list2\n");  
     for(int i=0;i<size2;i++){
         scanf("%d",&b[i]);
     }
-    printf("enter no of zeroes");
-    scanf("%d",&z);
     merge(a,size1,size1-z,b,size2,size2);
     for(int i=0;i<size1;i++){
         printf("%d ",a[i]);
     } 
 }
+
+output:
+enter no of elements in list1 including zeroes 6
+enter no of elements in list2 3
+enter no of zeroes in list1 3
+enter elements for list1
+1 2 3 0 0 0
+enter elements for list2
+2 5 6
+1 2 2 3 5 6
