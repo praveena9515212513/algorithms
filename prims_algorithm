@@ -1,0 +1,54 @@
+# include<math.h>
+#include<stdio.h>
+# include<stdlib.h>
+#include <limits.h>
+#include <stdbool.h>
+int mini(int key[],bool mstSet[],int n){
+    int m=INT_MAX,min_index;
+    for(int i=0;i<n;i++){
+        if(key[i]<m && mstSet[i]==false){
+            m=key[i],min_index=i;
+        }
+    }
+    return min_index;
+}
+int minCostConnectPoints(int points[][2], int pointsSize){
+int costs[pointsSize][pointsSize],parent[pointsSize],key[pointsSize];
+bool mstSet[pointsSize];
+for(int i=0;i<pointsSize;i++){
+    for(int j=0;j<pointsSize;j++){
+        costs[i][j]=abs(points[i][0]-points[j][0])+abs(points[i][1]-points[j][1]);
+    }
+}
+for(int i=0;i<pointsSize;i++){
+    key[i]=INT_MAX;
+    mstSet[i]=false;
+    parent[i]=-1;
+}
+int count=0;
+parent[0]=-1;
+key[0]=0;
+while(count<pointsSize-1){
+    int u=mini(key,mstSet,pointsSize);
+    mstSet[u]=true;
+    for(int v=0;v<pointsSize;v++){
+        if(costs[u][v] && mstSet[v]==false && key[v]>costs[u][v]){
+            key[v]=costs[u][v];
+            parent[v]=u;
+        }
+    }
+    count++;
+}
+int mincost=0;
+for(int i=0;i<pointsSize;i++){
+    mincost+=key[i];
+}
+return mincost;
+}
+
+int main()
+{
+ int  points[5][2] ={{0,0},{2,2},{3,10},{5,2},{7,0}};
+ int a=minCostConnectPoints(points,5);
+ printf("%d",a);
+}
